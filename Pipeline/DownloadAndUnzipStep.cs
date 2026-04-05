@@ -31,9 +31,9 @@ public class DownloadAndUnzipStep
         _httpClientFactory = httpClientFactory;
         _blobServiceClient = blobServiceClient;
         _sqlLogger = sqlLogger;
-        _zipDownloadUrl    = configuration["ZipDownloadUrl"]         ?? throw new InvalidOperationException("ZipDownloadUrl non configurato");
-        _tempContainerName = configuration["GtfsTempContainerName"]  ?? "gtfs-fi-temp";
-        _targetContainerName = configuration["GtfsTargetContainerName"] ?? "gtfs-firenze-data";
+        _zipDownloadUrl      = configuration["ZipDownloadUrl"]          ?? throw new InvalidOperationException("ZipDownloadUrl non configurato");
+        _tempContainerName   = configuration["GtfsTempContainerName"]   ?? throw new InvalidOperationException("GtfsTempContainerName non configurato");
+        _targetContainerName = configuration["GtfsTargetContainerName"] ?? throw new InvalidOperationException("GtfsTargetContainerName non configurato");
     }
 
     public async Task<List<string>> RunAsync(string runId, CancellationToken ct = default)

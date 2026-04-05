@@ -40,8 +40,10 @@ public class DirectToDailyStep
         _connectionString = configuration["SqlConnectionString"] ?? throw new InvalidOperationException("SqlConnectionString non configurato");
         _blobServiceClient = blobServiceClient;
         _sqlLogger = sqlLogger;
-        _containerName = configuration["GtfsTargetContainerName"] ?? "gtfs-firenze-data";
-        _agencyIds = (configuration["AgencyIds"] ?? configuration["AgencyId"] ?? "UFI")
+        _containerName = configuration["GtfsTargetContainerName"] ?? throw new InvalidOperationException("GtfsTargetContainerName non configurato");
+        var agencyConfig = configuration["AgencyIds"] ?? configuration["AgencyId"]
+            ?? throw new InvalidOperationException("AgencyId non configurato");
+        _agencyIds = agencyConfig
             .Split(',')
             .Select(x => x.Trim())
             .Where(x => !string.IsNullOrEmpty(x))
